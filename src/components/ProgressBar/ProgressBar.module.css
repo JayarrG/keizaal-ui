@@ -1,0 +1,147 @@
+.bar {
+  --color-accent:        hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-dim:    hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 15%));
+  --color-accent-bright: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 12%));
+  --color-border:        hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.18);
+  --color-border-lit:    hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  min-width: 55px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ── track ── */
+.track {
+  flex: 1;
+  height: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* recessed groove behind the fill */
+.track::before {
+  content: '';
+  position: absolute;
+  inset: 1px 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+/* ── end caps ── */
+.capLeft,
+.capRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background: var(--color-border-lit);
+  z-index: 2;
+}
+
+.capLeft { left: -4px; }
+.capRight { right: -4px; }
+
+.capLeft::after,
+.capRight::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 3px;
+  background: var(--color-border-lit);
+}
+
+.capLeft::after { left: 0; }
+.capRight::after { right: 0; }
+
+/* ── fill bar ── */
+.fill {
+  position: relative;
+  height: 100%;
+  min-width: 0;
+  border-radius: 3px;
+  z-index: 1;
+  overflow: hidden;
+  transition: width var(--transition-med);
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--color-accent-bright) 0%,
+      var(--color-accent) 40%,
+      var(--color-accent-dim) 100%
+    );
+  box-shadow:
+    0 0 8px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* animated shine sweep */
+.fillShine {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 40%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.08) 60%,
+      transparent 100%
+    );
+  animation: shine 3s ease-in-out infinite;
+}
+
+/* leading edge glow */
+.fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2)
+    );
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── value text ── */
+.value {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-bright);
+  min-width: 50px;
+  text-align: right;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ── shine animation ── */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  60% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}

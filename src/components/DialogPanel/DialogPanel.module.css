@@ -1,0 +1,131 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.pos_bottom {
+  align-items: flex-end;
+  padding-bottom: 160px;
+}
+
+.pos_center {
+  align-items: center;
+}
+
+.pos_top {
+  align-items: flex-start;
+  padding-top: 80px;
+}
+
+.panel {
+  width: 580px;
+  max-width: 90vw;
+  background: var(--color-surface);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  outline: 1px solid var(--color-border);
+  outline-offset: 3px;
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg) var(--space-xl);
+  pointer-events: auto;
+  position: relative;
+}
+
+/* corners */
+.corner {
+  position: absolute;
+  width: 32px;
+  aspect-ratio: 254 / 384;
+  background-color: var(--color-accent-dim);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.cornerTL { top: -10px; left: -10px; }
+.cornerTR { top: -10px; right: -10px; }
+.cornerBL { bottom: -10px; left: -10px; }
+.cornerBR { bottom: -10px; right: -10px; }
+
+/* header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.speaker {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-accent-bright);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-lit), transparent);
+}
+
+/* body */
+.body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: var(--space-lg);
+}
+
+/* options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-dim);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.option:hover,
+.optionHover {
+  color: var(--color-text-bright);
+  background: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06);
+}
+
+.persuasionTag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-accent-dim);
+  text-transform: capitalize;
+  margin-right: var(--space-sm);
+  letter-spacing: 1px;
+}
+
+/* footer */
+.footer {
+  margin-top: var(--space-lg);
+}

@@ -1,0 +1,85 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── outer ring ── */
+.outerRing {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinCW 2s linear infinite;
+}
+
+/* tick marks on outer ring via box-shadow */
+.outerRing::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid transparent;
+  border-top-color: var(--color-accent-dim);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: spinCCW 2s linear infinite;
+}
+
+/* ── inner ring — counter-rotating ── */
+.innerRing {
+  position: absolute;
+  inset: 22%;
+  border: 1px solid var(--color-border);
+  border-bottom-color: var(--color-accent-dim);
+  border-left-color: transparent;
+  border-radius: 50%;
+  animation: spinCCW 1.4s linear infinite;
+}
+
+.innerRing::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* ── center diamond ── */
+.center {
+  position: relative;
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diamond {
+  width: 100%;
+  height: 100%;
+  min-width: 4px;
+  min-height: 4px;
+  transform: rotate(45deg);
+  background: var(--color-accent);
+  border: 1px solid var(--color-border-lit);
+  box-shadow: 0 0 6px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.4);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* ── keyframes ── */
+@keyframes spinCW {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

@@ -1,0 +1,32 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.default {
+  color: var(--color-text-dim);
+}
+
+.accent {
+  color: var(--color-accent);
+  border-color: var(--color-accent-dim);
+}
+
+.success {
+  color: var(--color-stamina-lit);
+  border-color: var(--color-stamina);
+}
+
+.danger {
+  color: var(--color-health-lit);
+  border-color: var(--color-health);
+}

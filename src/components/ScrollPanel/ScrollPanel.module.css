@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════
+   ScrollPanel — ornamental custom scrollbar
+   ═══════════════════════════════════════════ */
+
+/* ── layout wrapper ── */
+.wrapper {
+  position: relative;
+  display: flex;
+  gap: 2px;
+}
+
+.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* ── scrollable content area ── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   Custom scrollbar column
+   ═══════════════════════════════════════════ */
+.scrollbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--transition-med);
+  user-select: none;
+  padding: 0 2px;
+}
+
+.scrollbar.visible {
+  opacity: 0.45;
+}
+
+.scrollbar.active {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   Ornamental end caps
+   ═══════════════════════════════════════════ */
+.capTop,
+.capBottom {
+  width: 100%;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* horizontal whisker lines from each cap */
+.capTop::before, .capTop::after,
+.capBottom::before, .capBottom::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  top: 50%;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-dim),
+    transparent
+  );
+}
+
+.capTop::before, .capBottom::before {
+  right: calc(50% + 7px);
+  left: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-dim));
+}
+
+.capTop::after, .capBottom::after {
+  left: calc(50% + 7px);
+  right: 1px;
+  background: linear-gradient(90deg, var(--color-accent-dim), transparent);
+}
+
+/* centre diamond — rotated square */
+.capDiamond {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-border-lit);
+  position: relative;
+  z-index: 1;
+  transition:
+    background var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.active .capDiamond {
+  background: var(--color-accent);
+  box-shadow:
+    0 0 4px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5),
+    0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.2);
+}
+
+/* ═══════════════════════════════════════════
+   Track
+   ═══════════════════════════════════════════ */
+.track {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+/* recessed central groove */
+.groove {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   Thumb — the draggable handle
+   ═══════════════════════════════════════════ */
+.thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  min-height: 32px;
+  cursor: grab;
+  z-index: 2;
+  border-radius: 1px;
+
+  /* forged metal gradient */
+  background: linear-gradient(
+    180deg,
+    var(--color-accent-dim)    0%,
+    var(--color-accent)        10%,
+    var(--color-accent-dim)    35%,
+    var(--color-accent)        50%,
+    var(--color-accent-dim)    65%,
+    var(--color-accent)        90%,
+    var(--color-accent-dim)   100%
+  );
+  border: 1px solid var(--color-border-lit);
+  box-shadow:
+    inset 0  1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 4px rgba(0, 0, 0, 0.5);
+  transition:
+    width        var(--transition-fast),
+    background   var(--transition-fast),
+    box-shadow   var(--transition-fast);
+}
+
+.thumb:hover,
+.thumbDragging {
+  width: 11px;
+  background: linear-gradient(
+    180deg,
+    var(--color-accent)        0%,
+    var(--color-accent-bright) 10%,
+    var(--color-accent)        35%,
+    var(--color-accent-bright) 50%,
+    var(--color-accent)        65%,
+    var(--color-accent-bright) 90%,
+    var(--color-accent)       100%
+  );
+  box-shadow:
+    inset 0  1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0  8px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.4),
+    0 0 16px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15);
+}
+
+.thumbDragging {
+  cursor: grabbing;
+}
+
+/* grip notches — three horizontal etch marks */
+.thumbGrip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 7px;
+  pointer-events: none;
+}
+
+.thumbGrip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.4),
+    0 3px 0 rgba(255, 255, 255, 0.2),
+    0 4px 0 rgba(0, 0, 0, 0.4),
+    0 6px 0 rgba(255, 255, 255, 0.2),
+    0 7px 0 rgba(0, 0, 0, 0.4);
+}

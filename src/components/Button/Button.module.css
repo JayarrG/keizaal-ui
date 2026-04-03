@@ -1,0 +1,210 @@
+.btn {
+  --btn-size: 48px;
+  /* re-derive accent shades so per-button --accent-h/s/l overrides work */
+  --color-accent:        hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-dim:    hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 15%));
+  --color-accent-bright: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 12%));
+  --color-border:        hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.18);
+  --color-border-lit:    hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%),
+    var(--color-surface);
+  border: 1px solid var(--color-border);
+  outline: 1px solid var(--color-border);
+  outline-offset: 2px;
+  color: var(--color-text);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.btn:hover {
+  border-color: var(--color-border-lit);
+  outline-color: var(--color-border-lit);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%),
+    var(--color-surface-lit);
+  box-shadow:
+    0 0 12px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.1),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* active / selected */
+.active {
+  border-color: var(--color-accent-dim);
+  outline-color: var(--color-accent-dim);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%),
+    var(--color-surface-lit);
+  box-shadow:
+    0 0 16px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.active .inner {
+  color: var(--color-accent);
+}
+
+/* disabled */
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* locked */
+.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: auto;
+}
+
+.locked .inner {
+  color: var(--color-text-dim);
+}
+
+.locked:hover {
+  opacity: 0.5;
+}
+
+.locked:hover .inner::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 50%;
+  height: 1px;
+  background: var(--color-text-dim);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* inner content */
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ── cube: fixed square ── */
+.cube {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: var(--radius-md);
+}
+
+/* ── circle: fixed square, round ── */
+.circle {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: 50%;
+}
+
+/* ── diamond: rotated square ── */
+.diamond {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: var(--radius-sm);
+  transform: rotate(45deg);
+  margin: calc(var(--btn-size) * 0.21);
+}
+
+.diamond:active {
+  transform: rotate(45deg) scale(0.96);
+}
+
+.diamond .inner {
+  transform: rotate(-45deg);
+}
+
+/* ── text: auto-sized to content ── */
+.text {
+  width: auto;
+  height: auto;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+/* ── notched button wrapper ── */
+.notchedWrap {
+  --btn-size: 48px;
+  --color-border:     hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.18);
+  --color-border-lit: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+  --color-accent-dim: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 15%));
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.notchedBorderOuter {
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+  pointer-events: none;
+  transition: background var(--transition-fast);
+}
+
+.notchedGap {
+  position: absolute;
+  inset: 1px;
+  background: #0e0e0e;
+  pointer-events: none;
+}
+
+.notchedBorderInner {
+  position: absolute;
+  inset: 3px;
+  background: var(--color-border);
+  pointer-events: none;
+  transition: background var(--transition-fast);
+}
+
+.notchedWrap:hover .notchedBorderOuter,
+.notchedWrap:hover .notchedBorderInner {
+  background: var(--color-border-lit);
+}
+
+.notchedActive .notchedBorderOuter,
+.notchedActive .notchedBorderInner {
+  background: var(--color-accent-dim);
+}
+
+.notched {
+  border: none;
+  outline: none;
+  border-radius: 0;
+  background: #0e0e0e;
+  position: relative;
+  z-index: 1;
+}
+
+.notched:hover {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%),
+    #141414;
+  border: none;
+  outline: none;
+}

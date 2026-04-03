@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════
+   Accordion — ornamental collapsible panel
+   ═══════════════════════════════════════════ */
+
+.accordion {
+  position: relative;
+  border: 1px solid var(--color-border);
+  outline: 1px solid var(--color-border);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-med),
+    outline-color var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.accordion + .accordion {
+  margin-top: var(--space-sm);
+}
+
+.open {
+  border-color: var(--color-border-lit);
+  outline-color: var(--color-border);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.04);
+}
+
+/* ── left accent bar ── */
+.accentBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--color-accent-dim);
+  opacity: 0;
+  transition:
+    opacity var(--transition-med),
+    background var(--transition-med),
+    box-shadow var(--transition-med);
+  z-index: 2;
+}
+
+.open .accentBar {
+  opacity: 1;
+  background: var(--color-accent);
+  box-shadow:
+    0 0 6px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.4),
+    0 0 14px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15);
+}
+
+/* ── header ── */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  padding-left: var(--space-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition-fast);
+}
+
+.header:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* diamond bullet before title */
+.bullet {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  transform: rotate(45deg);
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-border-lit);
+  transition:
+    background var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.open .bullet {
+  background: var(--color-accent);
+  box-shadow: 0 0 5px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5);
+}
+
+/* title text */
+.title {
+  flex: 1;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-dim);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  transition: color var(--transition-med);
+}
+
+.open .title {
+  color: var(--color-text);
+}
+
+/* chevron arrow */
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-dim);
+  transition:
+    color var(--transition-med),
+    transform var(--transition-med);
+  transform: rotate(0deg);
+}
+
+.open .chevron {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+/* ── ornamental divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 var(--space-md);
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    height var(--transition-med),
+    opacity var(--transition-med);
+}
+
+.open .divider {
+  height: 9px;
+  opacity: 1;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent-dim),
+    transparent
+  );
+}
+
+.dividerDot {
+  width: 4px;
+  height: 4px;
+  transform: rotate(45deg);
+  background: var(--color-accent-dim);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* ── body (animated height) ── */
+.bodyWrapper {
+  overflow: hidden;
+  transition: height var(--transition-med);
+}
+
+.body {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  position: relative;
+}
+
+/* inner vignette */
+.body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.12) 100%);
+  pointer-events: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}

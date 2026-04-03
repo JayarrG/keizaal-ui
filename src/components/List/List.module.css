@@ -1,0 +1,54 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.alt {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* hover highlight layer */
+.row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.row:hover::before {
+  opacity: 1;
+  background: linear-gradient(90deg, hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.1), transparent);
+}
+
+.row:hover {
+  color: var(--color-text-bright);
+}
+
+.selected {
+  color: var(--color-accent);
+}
+
+.selected::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12), transparent);
+  pointer-events: none;
+  opacity: 1;
+}

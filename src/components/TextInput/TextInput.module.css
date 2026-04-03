@@ -1,0 +1,81 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.input {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text-bright);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  position: relative;
+  transition:
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.input::placeholder {
+  color: var(--color-text-dim);
+  opacity: 0.5;
+}
+
+.input:hover {
+  border-color: var(--color-border-lit);
+}
+
+.input:focus {
+  border-color: var(--color-accent-dim);
+  outline-color: var(--color-border);
+  box-shadow:
+    0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.1),
+    inset 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* error state */
+.hasError .input {
+  border-color: var(--color-health-lit);
+  box-shadow: 0 0 8px rgba(184, 48, 48, 0.15);
+}
+
+.hasError .input:focus {
+  outline-color: var(--color-health);
+}
+
+.error {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-health-lit);
+  text-shadow: 0 0 6px rgba(184, 48, 48, 0.3);
+  letter-spacing: 0.5px;
+}
+
+/* locked */
+.locked {
+  opacity: 0.35;
+}
+
+.locked:hover {
+  opacity: 0.5;
+}
+
+.locked:hover .label {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-dim);
+}

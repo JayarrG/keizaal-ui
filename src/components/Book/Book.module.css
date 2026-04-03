@@ -1,0 +1,310 @@
+/* ═══════════════════════════════════════════
+   Book — interactive page-turning component
+   ═══════════════════════════════════════════ */
+
+.bookWrapper {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+.book {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  transform-style: preserve-3d;
+  overflow: visible;
+  transition: width 0.6s ease;
+}
+
+.bookOpen {
+  width: 580px;
+}
+
+/* ── cover ── */
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 400px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.coverOpen {
+  transform: rotateY(-178deg);
+  pointer-events: none;
+}
+
+.coverFront {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background:
+    linear-gradient(135deg, #2a1f14 0%, #1a140d 40%, #231a10 100%);
+  border: 2px solid #3a2a1a;
+  border-radius: 2px 8px 8px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.5),
+    4px 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.coverBorder {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(196, 164, 108, 0.25);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.coverBorder::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(196, 164, 108, 0.12);
+}
+
+.coverContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.coverTitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: #c4a46c;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+}
+
+.coverAuthor {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: rgba(196, 164, 108, 0.6);
+  text-transform: uppercase;
+}
+
+.coverOrnamentTop,
+.coverOrnamentBottom {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196, 164, 108, 0.4), transparent);
+}
+
+.coverBack {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background: #e8dcc8;
+  border-radius: 2px 8px 8px 2px;
+  visibility: hidden;
+}
+
+/* ── page area ── */
+.pageArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 580px;
+  height: 400px;
+  display: flex;
+  border-radius: 2px 8px 8px 2px;
+  overflow: visible;
+  background: #e8dcc8;
+  box-shadow:
+    4px 4px 16px rgba(0, 0, 0, 0.4),
+    -2px 0 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pageAreaVisible {
+  opacity: 1;
+}
+
+/* ── pages ── */
+.page {
+  flex: 1;
+  position: relative;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.06) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.03) 100%),
+    #e8dcc8;
+  min-width: 0;
+}
+
+.pageLeft {
+  border-right: none;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.06) 0%, transparent 8%, transparent 100%),
+    #e8dcc8;
+}
+
+.pageRight {
+  background:
+    linear-gradient(270deg, rgba(0,0,0,0.04) 0%, transparent 6%, transparent 100%),
+    #ece2d0;
+}
+
+.pageContent {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #2a2218;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.pageContent::-webkit-scrollbar {
+  display: none;
+}
+
+.pageNumber {
+  position: absolute;
+  bottom: 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(42, 34, 24, 0.35);
+}
+
+.pageLeft .pageNumber { left: 24px; }
+.pageRight .pageNumber { right: 24px; }
+
+/* single page — center the page number */
+.page:only-child .pageNumber {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── spine shadow ── */
+.spine {
+  width: 16px;
+  flex-shrink: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,0.12) 0%,
+      rgba(0,0,0,0.03) 30%,
+      rgba(0,0,0,0) 50%,
+      rgba(0,0,0,0.03) 70%,
+      rgba(0,0,0,0.12) 100%
+    );
+  pointer-events: none;
+}
+
+/* ── flipping page ── */
+.flipPage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 290px;
+  height: 400px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  z-index: 8;
+}
+
+.flipNext {
+  animation: flipNextAnim 500ms ease-in-out forwards;
+}
+
+.flipPrev {
+  transform: rotateY(-180deg);
+  animation: flipPrevAnim 500ms ease-in-out forwards;
+}
+
+.flipFront,
+.flipBack {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  padding: 28px 24px;
+  overflow: hidden;
+  border-radius: 0 8px 8px 0;
+}
+
+.flipFront {
+  background: #ece2d0;
+}
+
+.flipBack {
+  background: #e8dcc8;
+  transform: rotateY(180deg);
+}
+
+@keyframes flipNextAnim {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+@keyframes flipPrevAnim {
+  0%   { transform: rotateY(-180deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+/* ── navigation ── */
+.nav {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 12;
+}
+
+.navBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(42, 34, 24, 0.06);
+  border: 1px solid rgba(42, 34, 24, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(42, 34, 24, 0.5);
+  transition: color 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+
+.navBtn:hover {
+  color: rgba(42, 34, 24, 0.8);
+  background: rgba(42, 34, 24, 0.1);
+  border-color: rgba(42, 34, 24, 0.3);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navClose {
+  margin-left: 8px;
+}
+
+.pageIndicator {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(42, 34, 24, 0.4);
+  min-width: 30px;
+  text-align: center;
+}

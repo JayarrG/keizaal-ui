@@ -1,0 +1,50 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+
+.box {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.checked {
+  border-color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+
+.check {
+  font-size: 12px;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* locked */
+.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.locked:hover {
+  opacity: 0.5;
+}
+
+.locked:hover .label {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-dim);
+}

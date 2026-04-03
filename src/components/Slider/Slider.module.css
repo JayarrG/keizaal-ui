@@ -1,0 +1,188 @@
+.slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.locked:hover {
+  opacity: 0.5;
+}
+
+.locked:hover .label {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-text-dim);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  min-width: 70px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.value {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-text);
+  min-width: 30px;
+  text-align: right;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ── track wrapper with end caps ── */
+.wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* ── ornamental end caps ── */
+.capLeft,
+.capRight {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* vertical tick mark */
+.capLeft::before,
+.capRight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-lit);
+}
+
+.capLeft::before {
+  right: 0;
+}
+
+.capRight::before {
+  left: 0;
+}
+
+/* small horizontal whisker */
+.capLeft::after,
+.capRight::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 4px;
+  background: var(--color-border-lit);
+}
+
+.capLeft::after {
+  right: 0;
+}
+
+.capRight::after {
+  left: 0;
+}
+
+/* ── track ── */
+.track {
+  flex: 1;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* recessed groove */
+.groove {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* filled portion */
+.fill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      var(--color-accent) 0%,
+      var(--color-accent-dim) 100%
+    );
+  box-shadow:
+    0 0 6px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: width 50ms;
+}
+
+/* ── thumb ── */
+.thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* diamond-shaped thumb */
+.thumbDiamond {
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-radius: 1px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-accent-bright) 0%,
+      var(--color-accent) 40%,
+      var(--color-accent-dim) 100%
+    );
+  border: 1px solid var(--color-border-lit);
+  box-shadow:
+    0 0 6px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition:
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.track:hover .thumbDiamond {
+  box-shadow:
+    0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.5),
+    0 0 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg) scale(1.15);
+}

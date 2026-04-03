@@ -1,0 +1,57 @@
+:root {
+  /* master accent — changed dynamically by color picker */
+  --accent-h: 0;
+  --accent-s: 0%;
+  --accent-l: 100%;
+
+  /* derived accent shades */
+  --color-accent:        hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-dim:    hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 15%));
+  --color-accent-bright: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 12%));
+  --color-accent-on:     #1a1a1a; /* text on accent-colored backgrounds — set by ColorPicker */
+  --color-border:        hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.18);
+  --color-border-lit:    hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35);
+
+  /* palette */
+  --color-bg:           #0c0c0c;
+  --color-surface:      rgba(16, 16, 16, 0.88);
+  --color-surface-lit:  rgba(24, 24, 24, 0.92);
+  --color-text:         #b8b0a0;
+  --color-text-dim:     #6a6458;
+  --color-text-bright:  #e8e0d0;
+  --color-white:        #f0ece4;
+
+  /* stat bars */
+  --color-health:       #7a2020;
+  --color-health-lit:   #b83030;
+  --color-magicka:      #3a3a3a;
+  --color-magicka-lit:  #5a5a5a;
+  --color-stamina:      #2a6020;
+  --color-stamina-lit:  #40903a;
+
+  /* typography */
+  --font-display: 'Cinzel', serif;
+  --font-body:    'Cinzel', serif;
+
+  /* spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* corners & radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* transitions */
+  --transition-fast: 150ms ease;
+  --transition-med:  300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* background effects */
+  --bg-blur: 3px;
+  --bg-darken: 0.75;
+}

@@ -1,0 +1,160 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 450;
+  transition: background 300ms ease, backdrop-filter 300ms ease;
+}
+
+.backdropVisible {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.dialog {
+  position: relative;
+  background: var(--color-surface-lit);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-lit);
+  outline: 1px solid var(--color-border);
+  outline-offset: 3px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  min-width: 300px;
+  max-width: 420px;
+  text-align: center;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06);
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.dialogVisible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* inner vignette */
+.dialog::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── corner ornaments ── */
+.corner {
+  position: absolute;
+  width: 32px;
+  aspect-ratio: 254 / 384;
+  background-color: var(--color-accent);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.7;
+}
+
+.tl { top: -10px; left: -10px; }
+.tr { top: -10px; right: -10px; }
+.bl { bottom: -10px; left: -10px; }
+.br { bottom: -10px; right: -10px; }
+
+/* ── top accent line ── */
+.topAccent {
+  position: absolute;
+  top: -1px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  border-radius: 1px;
+  z-index: 2;
+}
+
+/* ── title ── */
+.title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+
+/* ── message ── */
+.message {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+/* ── action buttons ── */
+.actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.cancel, .confirm {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.cancel {
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  background: transparent;
+}
+
+.cancel:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-border-lit);
+  outline-color: var(--color-border);
+}
+
+.confirm {
+  color: var(--color-accent-on);
+  border: 1px solid var(--color-accent-dim);
+  background: var(--color-accent-dim);
+}
+
+.confirm:hover {
+  color: var(--color-accent-on);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  outline-color: var(--color-accent-dim);
+  box-shadow: 0 0 12px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.2);
+}

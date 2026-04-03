@@ -1,0 +1,96 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* ── controls container ── */
+.controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  outline: 1px solid var(--color-border);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast);
+}
+
+.controls:hover {
+  border-color: var(--color-border-lit);
+}
+
+/* ── +/- buttons ── */
+.btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text-dim);
+  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn:hover:not(:disabled) {
+  color: var(--color-accent);
+  background: linear-gradient(180deg, hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.08), transparent);
+  box-shadow: inset 0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.05);
+}
+
+.btn:active:not(:disabled) {
+  background: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* separator lines between btn and value */
+.btn:first-child::after,
+.btn:last-child::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--color-border-lit), transparent);
+}
+
+.btn:first-child::after { right: 0; }
+.btn:last-child::before { left: 0; }
+
+/* ── value display ── */
+.value {
+  min-width: 42px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-bright);
+  padding: 0 var(--space-sm);
+  height: 32px;
+  line-height: 32px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}

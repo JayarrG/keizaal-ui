@@ -1,0 +1,97 @@
+.stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  position: relative;
+}
+
+/* hover highlight */
+.stat::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(-1 * var(--space-sm));
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.stat:hover::before {
+  opacity: 1;
+}
+
+/* ── label ── */
+.label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  transition: color var(--transition-fast);
+}
+
+.stat:hover .label {
+  color: var(--color-text-bright);
+}
+
+/* ── connecting line ── */
+.dots {
+  flex: 1;
+  min-width: 20px;
+  height: 0;
+  border: none;
+  position: relative;
+  margin-bottom: 1px;
+}
+
+/* gradient line with fade at edges */
+.dots::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-border-lit), var(--color-border), var(--color-border-lit));
+  mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+}
+
+/* small diamond midpoint ornament */
+.dots::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--color-border-lit);
+  opacity: 0.5;
+  transition: opacity var(--transition-fast), background var(--transition-fast);
+}
+
+.stat:hover .dots::after {
+  opacity: 0.8;
+  background: var(--color-accent-dim);
+}
+
+/* ── value ── */
+.value {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-bright);
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  transition: color var(--transition-fast);
+}
+
+.stat:hover .value {
+  color: var(--color-accent);
+}

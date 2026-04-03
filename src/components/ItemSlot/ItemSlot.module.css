@@ -1,0 +1,215 @@
+.slot {
+  position: relative;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 255, 255, 0.015) 100%
+    ),
+    rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color var(--transition-fast),
+    outline-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* inner vignette */
+.slot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* corner ticks — small L-shaped marks in each corner */
+.slot::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2;
+  /* four corner ticks using gradient borders */
+  background:
+    /* top-left */
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 0 0 / 5px 1px no-repeat,
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 0 0 / 1px 5px no-repeat,
+    /* top-right */
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 100% 0 / 5px 1px no-repeat,
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 100% 0 / 1px 5px no-repeat,
+    /* bottom-left */
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 0 100% / 5px 1px no-repeat,
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 0 100% / 1px 5px no-repeat,
+    /* bottom-right */
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 100% 100% / 5px 1px no-repeat,
+    linear-gradient(var(--color-border-lit), var(--color-border-lit)) 100% 100% / 1px 5px no-repeat;
+  opacity: 0.4;
+  transition: opacity var(--transition-fast);
+}
+
+.slot:hover {
+  border-color: var(--color-border-lit);
+  outline-color: var(--color-border);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 255, 255, 0.03) 100%
+    ),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.02);
+}
+
+.slot:hover::before {
+  opacity: 0.7;
+}
+
+/* selected state */
+.selected {
+  border-color: var(--color-accent-dim);
+  outline-color: var(--color-accent-dim);
+  box-shadow:
+    0 0 8px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12),
+    inset 0 0 16px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06);
+}
+
+/* empty slots — minimal */
+.empty {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.empty::after,
+.empty::before {
+  display: none;
+}
+
+/* ── rarity tiers ── */
+
+.uncommon {
+  border-color: rgba(74, 138, 74, 0.55);
+  box-shadow: inset 0 0 10px rgba(74, 138, 74, 0.06);
+}
+.uncommon::before {
+  opacity: 0.5;
+  background:
+    linear-gradient(#4a8a4a, #4a8a4a) 0 0 / 5px 1px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 0 0 / 1px 5px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 100% 0 / 5px 1px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 100% 0 / 1px 5px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 0 100% / 5px 1px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 0 100% / 1px 5px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 100% 100% / 5px 1px no-repeat,
+    linear-gradient(#4a8a4a, #4a8a4a) 100% 100% / 1px 5px no-repeat;
+}
+.uncommon:hover {
+  outline-color: rgba(74, 138, 74, 0.4);
+  box-shadow: inset 0 0 14px rgba(74, 138, 74, 0.08);
+}
+
+.rare {
+  border-color: rgba(74, 106, 154, 0.6);
+  box-shadow: inset 0 0 10px rgba(74, 106, 154, 0.06);
+}
+.rare::before {
+  opacity: 0.55;
+  background:
+    linear-gradient(#4a6a9a, #4a6a9a) 0 0 / 5px 1px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 0 0 / 1px 5px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 100% 0 / 5px 1px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 100% 0 / 1px 5px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 0 100% / 5px 1px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 0 100% / 1px 5px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 100% 100% / 5px 1px no-repeat,
+    linear-gradient(#4a6a9a, #4a6a9a) 100% 100% / 1px 5px no-repeat;
+}
+.rare:hover {
+  outline-color: rgba(74, 106, 154, 0.45);
+  box-shadow: inset 0 0 14px rgba(74, 106, 154, 0.08);
+}
+
+.epic {
+  border-color: rgba(122, 74, 154, 0.6);
+  box-shadow: inset 0 0 10px rgba(122, 74, 154, 0.06);
+}
+.epic::before {
+  opacity: 0.55;
+  background:
+    linear-gradient(#7a4a9a, #7a4a9a) 0 0 / 5px 1px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 0 0 / 1px 5px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 100% 0 / 5px 1px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 100% 0 / 1px 5px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 0 100% / 5px 1px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 0 100% / 1px 5px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 100% 100% / 5px 1px no-repeat,
+    linear-gradient(#7a4a9a, #7a4a9a) 100% 100% / 1px 5px no-repeat;
+}
+.epic:hover {
+  outline-color: rgba(122, 74, 154, 0.45);
+  box-shadow: inset 0 0 14px rgba(122, 74, 154, 0.08);
+}
+
+.legendary {
+  border-color: rgba(196, 164, 74, 0.55);
+  box-shadow:
+    inset 0 0 12px rgba(196, 164, 74, 0.08),
+    0 0 6px rgba(196, 164, 74, 0.06);
+}
+.legendary::before {
+  opacity: 0.6;
+  background:
+    linear-gradient(#c4a44a, #c4a44a) 0 0 / 5px 1px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 0 0 / 1px 5px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 100% 0 / 5px 1px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 100% 0 / 1px 5px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 0 100% / 5px 1px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 0 100% / 1px 5px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 100% 100% / 5px 1px no-repeat,
+    linear-gradient(#c4a44a, #c4a44a) 100% 100% / 1px 5px no-repeat;
+}
+.legendary:hover {
+  outline-color: rgba(196, 164, 74, 0.4);
+  box-shadow:
+    inset 0 0 16px rgba(196, 164, 74, 0.1),
+    0 0 10px rgba(196, 164, 74, 0.08);
+}
+
+/* ── item image ── */
+.image {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  pointer-events: none;
+  position: relative;
+  z-index: 3;
+}
+
+/* ── stack count ── */
+.count {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  z-index: 4;
+}

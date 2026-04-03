@@ -1,0 +1,115 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.tip {
+  position: absolute;
+  z-index: 300;
+  background: #141414;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-lit);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--color-text-bright);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+/* arrow */
+.tip::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #141414;
+  border: 1px solid var(--color-border-lit);
+  transform: rotate(45deg);
+}
+
+/* ── top ── */
+.top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+}
+
+.top.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.top::after {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -3px;
+  border-top: none;
+  border-left: none;
+}
+
+/* ── bottom ── */
+.bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.bottom.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.bottom::after {
+  top: -4px;
+  left: 50%;
+  margin-left: -3px;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* ── left ── */
+.left {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+}
+
+.left.visible {
+  transform: translateY(-50%) translateX(0);
+}
+
+.left::after {
+  right: -4px;
+  top: 50%;
+  margin-top: -3px;
+  border-bottom: none;
+  border-left: none;
+}
+
+/* ── right ── */
+.right {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+}
+
+.right.visible {
+  transform: translateY(-50%) translateX(0);
+}
+
+.right::after {
+  left: -4px;
+  top: 50%;
+  margin-top: -3px;
+  border-top: none;
+  border-right: none;
+}

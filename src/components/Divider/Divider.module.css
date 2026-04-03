@@ -1,0 +1,38 @@
+.divider {
+  flex-shrink: 0;
+}
+
+.horizontal {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-lit), transparent);
+}
+
+.vertical {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--color-border-lit), transparent);
+}
+
+.ornament {
+  height: auto;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-lit));
+}
+
+.line:last-child {
+  background: linear-gradient(90deg, var(--color-border-lit), transparent);
+}
+
+.diamond {
+  font-size: 10px;
+  color: var(--color-accent-dim);
+}
