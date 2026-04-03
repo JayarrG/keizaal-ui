@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════
-   ScrollPanel — ornamental custom scrollbar
-   ═══════════════════════════════════════════ */
-
-/* ── layout wrapper ── */
+/* layout wrapper */
 .wrapper {
   position: relative;
   display: flex;

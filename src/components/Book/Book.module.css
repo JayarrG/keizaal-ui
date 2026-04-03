@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════
-   Book — interactive page-turning component
-   ═══════════════════════════════════════════ */
-
 .bookWrapper {
   perspective: 1200px;
   display: flex;
