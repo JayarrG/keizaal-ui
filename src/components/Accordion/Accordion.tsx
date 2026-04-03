@@ -17,7 +17,11 @@ export default function Accordion({ title, children, className = '', defaultOpen
 
   useEffect(() => {
     if (open && innerRef.current) {
-      setBodyHeight(innerRef.current.scrollHeight);
+      const update = () => setBodyHeight(innerRef.current?.scrollHeight ?? 0);
+      update();
+      const ro = new ResizeObserver(update);
+      ro.observe(innerRef.current);
+      return () => ro.disconnect();
     } else {
       setBodyHeight(0);
     }
