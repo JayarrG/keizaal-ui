@@ -285,7 +285,8 @@ function InputsDemo() {
   const [checkB, setCheckB] = useState(false);
   const [text, setText] = useState('');
   const [dropdown, setDropdown] = useState('med');
-  const [stepVal, setStepVal] = useState(5);
+  const [quantity, setQuantity] = useState(5);
+  const [level, setLevel] = useState(10);
 
   return (
     <>
@@ -429,8 +430,8 @@ function InputsDemo() {
 
       <Section title="Stepper">
         <div className={styles.row}>
-          <Stepper value={stepVal} onChange={setStepVal} label="Quantity" min={0} max={20} />
-          <Stepper value={stepVal} onChange={setStepVal} label="Level" min={1} max={100} step={5} />
+          <Stepper value={quantity} onChange={setQuantity} label="Quantity" min={0} max={20} />
+          <Stepper value={level} onChange={setLevel} label="Level" min={1} max={100} step={5} />
         </div>
       </Section>
 
